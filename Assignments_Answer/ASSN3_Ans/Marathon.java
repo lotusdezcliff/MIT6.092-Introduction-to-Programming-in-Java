@@ -11,8 +11,25 @@ class Marathon {
             343, 317, 265
         };
 
-        for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i] + ": " + times[i]);
+        System.out.println("Fastest Runner  " + names[searchIndex(times, maxValue(times))] + ": " + maxValue(times));
+    }
+
+    public static int searchIndex (int[] num_arry, int num) {
+        for (int i = 0; i < num_arry.length; i++) {
+            if (num_arry[i] == num) {
+                return i;
+            }
         }
+        return -1;
+    }
+
+    public static int maxValue (int[] num_arry) {
+        int currMax = num_arry[0];
+        for (int i = 1; i < num_arry.length; i++) {
+            if (num_arry[i] > currMax) {
+                currMax = num_arry[i];
+            }
+        }
+        return currMax;
     }
 } 
