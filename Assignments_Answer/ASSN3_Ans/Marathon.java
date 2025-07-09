@@ -11,7 +11,8 @@ class Marathon {
             343, 317, 265
         };
 
-        System.out.println("Fastest Runner  " + names[searchIndex(times, minValue(times))] + ": " + minValue(times));
+        System.out.println("Fastest Runner - " + names[searchIndex(times, minValue(times))] + ": " + minValue(times));
+        System.out.println("Second Fastest Runner - " + names[searchIndex(times, secondMinValue(times))] + ": " + secondMinValue(times));
     }
 
     public static int searchIndex (int[] num_arry, int num) {
@@ -24,12 +25,22 @@ class Marathon {
     }
 
     public static int minValue (int[] num_arry) {
-        int currMax = num_arry[0];
+        int currMin = num_arry[0];
         for (int i = 1; i < num_arry.length; i++) {
-            if (num_arry[i] < currMax) {
-                currMax = num_arry[i];
+            if (num_arry[i] < currMin) {
+                currMin = num_arry[i];
             }
         }
-        return currMax;
+        return currMin;
+    }
+
+    public static int secondMinValue (int[] num_arry) {
+        int currMin = num_arry[0];
+        for (int i = 1; i < num_arry.length; i++) {
+            if (num_arry[i] < currMin && num_arry[i] != minValue(num_arry)) {
+                currMin = num_arry[i];
+            }
+        }
+        return currMin;
     }
 } 
