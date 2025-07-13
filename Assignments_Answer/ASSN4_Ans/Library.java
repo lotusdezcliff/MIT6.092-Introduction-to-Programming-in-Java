@@ -1,11 +1,18 @@
+import java.util.ArrayList;
+
 public class Library {
     // Add the missing implementation to this class
+    static String openingHours = "Libraries are open daily from 9am to 5pm.";
+    ArrayList<Book> books = new ArrayList<>(); // Create array of books for book
+    String address;
+    private boolean borrowed = false;
+
 
     public static void main(String[] args) {
         // Create two libraries
         Library firstLibrary = new Library("10 Main St.");
         Library secondLibrary = new Library("228 Liberty St.");
-
+        
         // Add four books to the first library
         firstLibrary.addBook(new Book("The Da Vinci Code"));
         firstLibrary.addBook(new Book("Le Petit Prince"));
@@ -45,5 +52,66 @@ public class Library {
         // Print the titles of available from the first library
         System.out.println("Books available in the first library:");
         firstLibrary.printAvailableBooks();
+    }
+
+
+    public Library(String address) {
+        this.address = address;
+    }
+
+    public void addBook(Book bookName) {
+        books.add(bookName);
+    }
+
+    public void borrowBook(Book bookName) {
+        for (Book book: books) {
+            if (bookName == book) {
+                if (book.borrowed == false) {
+                    book.borrowed = true;
+                    System.out.println("You successfully borrowed " + bookName);
+                }
+                else {
+                    System.out.println("Sorry, this book is already borrowed.");
+                }
+            }
+            else {
+                System.out.println("Sorry, this book is not in our catalog.");
+            }
+        }
+    }
+
+    public void returnBook(Book bookName) {
+        for (Book book: books) {
+            if (bookName == book) {
+                if (book.borrowed == true) {
+                    book.borrowed = false;
+                    System.out.println("You successfully returned " + bookName);
+                }
+                else {
+                    System.out.println("Sorry, this book is not borrowed.");
+                }
+            }
+            else {
+                System.out.println("Sorry, this book is not in our catalog.");
+            }
+        }
+    }
+
+    public void printAvailableBooks() {
+        for (int i = 0; i < books.size(); i++) {
+            System.out.println(books.get(i));
+        }
+    }
+
+    public static void printOpeningHours() {
+        System.out.println(Library.openingHours);
+    }
+
+    public void printAddress() {
+        System.out.println(this.address);
+    }
+
+    public boolean  isBorrowed() {
+        return borrowed;
     }
 } 
