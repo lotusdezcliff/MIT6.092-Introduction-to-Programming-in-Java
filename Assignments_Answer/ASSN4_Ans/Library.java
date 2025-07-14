@@ -5,8 +5,6 @@ public class Library {
     static String openingHours = "Libraries are open daily from 9am to 5pm.";
     ArrayList<Book> books = new ArrayList<>(); // Create array of books for book
     String address;
-    private boolean borrowed = false;
-
 
     public static void main(String[] args) {
         // Create two libraries
@@ -59,49 +57,58 @@ public class Library {
         this.address = address;
     }
 
-    public void addBook(Book bookName) {
-        books.add(bookName);
+    public void addBook(Book bookTitle) {
+        books.add(bookTitle);
     }
 
-    public void borrowBook(Book bookName) {
+    public void borrowBook(String bookTitle) {
+        boolean found = false;
         for (Book book: books) {
-            if (bookName == book) {
-                if (book.borrowed == false) {
-                    book.borrowed = true;
-                    System.out.println("You successfully borrowed " + bookName);
+            if (book.getTitle().equals(bookTitle)) {
+                found = true;
+                if (book.isBorrowed() == false) {
+                    System.out.println("You successfully borrowed " + bookTitle);
+                    book.borrowed();
+                    return;
                 }
                 else {
                     System.out.println("Sorry, this book is already borrowed.");
+                    return;
                 }
             }
-            else {
-                System.out.println("Sorry, this book is not in our catalog.");
-            }
+        }
+        if (found == false) {
+            System.out.println("Sorry, this book is not in our catalog.");
         }
     }
 
-    public void returnBook(Book bookName) {
+    public void returnBook(String bookTitle) {
+        boolean found = false;
         for (Book book: books) {
-            if (bookName == book) {
-                if (book.borrowed == true) {
-                    book.borrowed = false;
-                    System.out.println("You successfully returned " + bookName);
-                }
-                else {
-                    System.out.println("Sorry, this book is not borrowed.");
+            if (book.getTitle().equals(bookTitle)) {
+                found = true;
+                if (book.isBorrowed() == true) {
+                    System.out.println("You successfully returned " + bookTitle);
+                    book.returned();
+                    return;
                 }
             }
-            else {
-                System.out.println("Sorry, this book is not in our catalog.");
-            }
+        }
+        if (found == false) {
+            System.out.println("Sorry, this book is not in our catalog.");
         }
     }
 
     public void printAvailableBooks() {
-        for (int i = 0; i < books.size(); i++) {
-            System.out.println(books.get(i));
+        for (Book book : books) {
+            if (!book.isBorrowed()) {
+                System.out.println(book.getTitle());
+            }
         }
-    }
+        if (books.size() == 0) {
+            System.out.println("No book in catalog");
+        }
+    }   
 
     public static void printOpeningHours() {
         System.out.println(Library.openingHours);
@@ -109,9 +116,5 @@ public class Library {
 
     public void printAddress() {
         System.out.println(this.address);
-    }
-
-    public boolean  isBorrowed() {
-        return borrowed;
     }
 } 

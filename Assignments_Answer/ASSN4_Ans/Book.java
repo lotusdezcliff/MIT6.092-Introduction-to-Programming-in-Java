@@ -24,12 +24,7 @@ public class Book {
     // Returns true if the book is rented, false otherwise
     public boolean isBorrowed() {
         // Implement this method
-        if (this.borrowed == true) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.borrowed;
     }
    
     // Returns the title of the book
