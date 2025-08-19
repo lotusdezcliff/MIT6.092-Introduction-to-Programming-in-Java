@@ -9,9 +9,8 @@ public class Oval implements Sprite {
     private Color color;
 
     /**
-     * Create a oval that has dimensions width and height, filled with
-     * startColor.
-     */
+    Create an oval that has dimensions width and height, filled with startColor.
+    **/
     public Oval(int width, int height, Color color) {
         this.width = width;
         this.height = height;
